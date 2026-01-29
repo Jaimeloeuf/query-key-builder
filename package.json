@@ -1,0 +1,54 @@
+{
+  "name": "query-key-builder",
+  "version": "1.0.0",
+  "description": "Super simple Type Safe query key builder for TanStack Query libraries like React Query",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "typecheck": "npx tsc",
+    "lint": "npx eslint",
+    "lint:fix": "npx eslint --fix",
+    "build:watch": "npx tsc -w",
+    "build:delete": "npx rimraf ./dist tsconfig.tsbuildinfo",
+    "build:rollup": "npx rollup --config",
+    "build": "npm run build:delete && npm run build:rollup",
+    "prepack": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaimeloeuf/query-key-builder.git"
+  },
+  "keywords": [
+    "type-safe",
+    "typesafe",
+    "type",
+    "safe",
+    "query",
+    "key",
+    "builder",
+    "tanstack query",
+    "react query"
+  ],
+  "author": "JJ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jaimeloeuf/query-key-builder/issues"
+  },
+  "homepage": "https://github.com/Jaimeloeuf/query-key-builder#readme",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^25.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-perfectionist": "^5.4.0",
+    "rimraf": "^6.1.2",
+    "rollup": "^4.57.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0"
+  }
+}
