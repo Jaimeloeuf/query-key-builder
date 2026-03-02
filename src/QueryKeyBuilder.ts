@@ -22,7 +22,7 @@ import { convertQueryKeyStringTemplateToQueryKeyArrayWithVariables } from "./con
  * // ✅ Works
  * // Since it is a full path without any variables, and the optional object for
  * // variables is not required.
- * queryKeyBuilder.fullPathForDataInsertion("podcast.featured.episodes");
+ * queryKeyBuilder.fullPath("podcast.featured.episodes");
  *
  * // ✅ Works
  * // For partial query keys when it comes to data deletion use cases like
@@ -33,25 +33,25 @@ import { convertQueryKeyStringTemplateToQueryKeyArrayWithVariables } from "./con
  *
  * // ❌ TS Error
  * // Missing the variables object for the 'episodeID' variable
- * queryKeyBuilder.fullPathForDataInsertion("podcast.episode.episodeID.$episodeID");
+ * queryKeyBuilder.fullPath("podcast.episode.episodeID.$episodeID");
  *
  * // ✅ Works
  * // 'episodeID' variable is passed in
- * queryKeyBuilder.fullPathForDataInsertion(
+ * queryKeyBuilder.fullPath(
  *   "podcast.episode.episodeID.$episodeID",
  *   { episodeID: "09sgu9au90aue" },
  * );
  *
  * // ❌ TS Error
  * // Missing 'limit' variable in variables object
- * queryKeyBuilder.fullPathForDataInsertion(
+ * queryKeyBuilder.fullPath(
  *   "podcast.episode.reccomendations.episodeID.$episodeID.$limit",
  *   { episodeID: "09sgu9au90aue" },
  * );
  *
  * // ✅ Works
  * // Both variables are passed in
- * queryKeyBuilder.fullPathForDataInsertion(
+ * queryKeyBuilder.fullPath(
  *   "podcast.episode.reccomendations.episodeID.$episodeID.$limit",
  *   { episodeID: "09sgu9au90aue", limit: 10 },
  * );
@@ -81,14 +81,16 @@ export class QueryKeyBuilder<
 > {
   /**
    * Build the full query key using the full query key template when you are
-   * doing "data insertion", e.g.
+   * doing "data insertion" or specific piece of data deletion / invalidation,
+   * e.g.
    * - `useQuery`'s `QueryOption`'s `queryKey` property.
    * - `queryClient.setQueryData` method's `queryKey` argument.
+   * - `queryClient.invalidateQueries` method's `queryKey` argument.
    *
-   * Since for data insertion you need to be explicit about the full path where
-   * this data is cached under.
+   * Mostly used for data insertion you need to be explicit about the full path
+   * where this data is cached under.
    */
-  fullPathForDataInsertion<const T extends AllQueryKeyTemplates>(
+  fullPath<const T extends AllQueryKeyTemplates>(
     ...args: ArgsWithOptionalVariables<T>
   ) {
     const [input, variables] = args;
@@ -107,6 +109,9 @@ export class QueryKeyBuilder<
    * Since for data deletion you can choose to either delete an explicit full
    * query key path, or delete higher up in the path to delete all data in the
    * child nodes.
+   *
+   * This should not be used for data insertion since you should use the
+   * `fullPath` method instead.
    */
   partialPathForDataDeletion<const T extends PartialQueryKeyTemplates>(
     ...args: ArgsWithOptionalVariables<T>

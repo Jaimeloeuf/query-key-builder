@@ -10,7 +10,7 @@ export const queryKeyBuilder = new QueryKeyBuilder<
 // ✅ Works
 // Since it is a full path without any variables, and the optional object for
 // variables is not required.
-queryKeyBuilder.fullPathForDataInsertion("podcast.featured.episodes");
+queryKeyBuilder.fullPath("podcast.featured.episodes");
 
 // ✅ Works
 // For partial query keys when it comes to data deletion use cases like
@@ -21,27 +21,24 @@ queryKeyBuilder.partialPathForDataDeletion("podcast.featured");
 
 // ❌ TS Error
 // Missing the variables object for the 'episodeID' variable
-queryKeyBuilder.fullPathForDataInsertion(
-  "podcast.episode.episodeID.$episodeID",
-);
+queryKeyBuilder.fullPath("podcast.episode.episodeID.$episodeID");
 
 // ✅ Works
 // 'episodeID' variable is passed in
-queryKeyBuilder.fullPathForDataInsertion(
-  "podcast.episode.episodeID.$episodeID",
-  { episodeID: "09sgu9au90aue" },
-);
+queryKeyBuilder.fullPath("podcast.episode.episodeID.$episodeID", {
+  episodeID: "09sgu9au90aue",
+});
 
 // ❌ TS Error
 // Missing 'limit' variable in variables object
-queryKeyBuilder.fullPathForDataInsertion(
+queryKeyBuilder.fullPath(
   "podcast.episode.reccomendations.episodeID.$episodeID.$limit",
   { episodeID: "09sgu9au90aue" },
 );
 
 // ✅ Works
 // Both variables are passed in
-queryKeyBuilder.fullPathForDataInsertion(
+queryKeyBuilder.fullPath(
   "podcast.episode.reccomendations.episodeID.$episodeID.$limit",
   { episodeID: "09sgu9au90aue", limit: 10 },
 );

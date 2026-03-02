@@ -1,6 +1,6 @@
 {
   "name": "query-key-builder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Super simple Type Safe query key builder for TanStack Query libraries like React Query",
   "type": "module",
   "main": "dist/index.js",
